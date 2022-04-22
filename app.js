@@ -12,17 +12,20 @@ const {
   formatOverrides,
   maxWarnings,
   quiet,
+  ext,
   _: additionalArguments,
 } = yargs.options({
   formatOverrides: { type: 'array', alias: 'o' },
   maxWarnings: { type: 'number', alias: 'm' },
   quiet: { type: 'boolean', default: false, alias: 'q' },
+  ext: { type: 'string' },
 }).argv;
 
 const config = {
   useEslintrc: true,
   ...(rc.eslintConfig || {}),
   cwd,
+  extensions: ext ? ext.split(',') : [],
 };
 
 const cli = new ESLint(config);
